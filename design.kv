@@ -1,0 +1,126 @@
+
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+#: import toast kivymd.toast.toast
+#: import ScrollEffect kivy.effects.scroll.ScrollEffect
+
+
+
+ScreenManager:
+	id: sm
+	transition: NoTransition()			
+
+	MainScreen:
+		id: main_screen
+		manager: sm
+
+
+
+<MainScreen>:
+	name: "main"
+	BoxLayout:
+		orientation: "vertical"
+		
+		BoxLayout:
+			orientation: "horizontal"
+			size_hint: (1, .2)
+			spacing: 500
+			
+			AnchorLayout:
+				anchor_x: "left"
+					
+				Image:
+					source: "./utils/logo.png"
+					size_hint: (None, None)
+					width: 300
+					height: 300
+				#color: [1,0,0,1]
+			
+			MDBoxLayout:
+				orienation: "horizontal"
+				spacing: 100
+				padding: 100
+				
+				MDTextButton:#MDFillRoundFlatIconButton:
+					icon: "settings"
+					text: "SETTINGS"
+					pos_hint: {"y": .5}
+					
+				MDTextButton:#MDFillRoundFlatIconButton:
+					icon: "help"
+					text: "HELP"
+					pos_hint: {"y": .5}
+				
+		
+		ScrollView:
+			effect_cls: ScrollEffect
+			StackLayout:
+				#StackLayout Properties
+				orientation: "lr-tb"
+				id: project_library
+				spacing: 20
+				padding: 15
+				# Properties needed for ScrollView
+				size_hint_y: None
+				height: self.minimum_height
+
+
+
+
+<ProjectContainer>:
+	orientation: "vertical"
+	size_hint: (None, None)
+	size: (232.72727272727272, 340)
+	background_color: 0,0,0,0  # the last zero is the critical on, make invisible
+	pos: (1000, 100)
+	canvas.before:
+		Color:
+			rgba: self.prime_bg_color
+		RoundedRectangle:
+			pos: self.pos
+			size: self.size
+			radius: [20,]
+	
+	Label:
+		id: date
+		text: root.date
+		halign: "center"
+		valign: "middle"
+		
+	Label:
+		id: title
+		text: root.title
+		font_name: "Paul"
+		font_size: 30
+		halign: "center"
+		valign: "middle"
+
+	MDBoxLayout:
+		orientation: "vertical"
+		text: "Don't"
+		size_hint: (None, None)
+		size: (232.72727272727272, 160)
+		background_color: 0,0,0,0  # the last zero is the critical on, make invisible
+		pos: self.parent.pos
+		canvas.before:
+			Color:
+				rgba: root.second_bg_color
+			RoundedRectangle:
+				pos: self.parent.pos
+				size: self.size
+				radius: [20,]	
+		Label:
+			id: wip
+			text: "Works in progress: " + root.wip
+			font_name: "Nasa21"
+			font_size: 20
+			halign: "left"
+			valign: "top"
+			
+		Label:
+			id: wtd
+			text: "Pending: " + root.wtd
+			font_name: "Nasa21"
+			font_size: 20
+			halign: "left"
+			valign: "top"
+
