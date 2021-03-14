@@ -53,6 +53,11 @@ class Oculus(MDApp):
 	def build(self):
 		self.theme_cls.primary_palette = "Blue"
 		
+		# Register different fonts
+		fonts = ['ConfessionRegular.ttf', 'CabalBold.ttf', 'AovelSans.ttf', 'Cabal.ttf', 'Nasa21.ttf', 'Paul.ttf', 'ConfessionFullRegular.ttf']
+		for font in fonts:
+			print(font[:-4])
+			LabelBase.register(name = font[:-4], fn_regular = f"utils/{font}")
 		
 		self.primary_colors = {"Dark Blue": (74/255, 73/255, 166/255, 1),
 "Light Blue": (109/255, 145/255, 246/255, 1),
