@@ -2,8 +2,9 @@
 #: import NoTransition kivy.uix.screenmanager.NoTransition
 #: import toast kivymd.toast.toast
 #: import ScrollEffect kivy.effects.scroll.ScrollEffect
+#: import win kivy.core.window.Window
 
-
+<TooltipIconButton@MDTooltip+MDIconButton>
 
 ScreenManager:
 	id: sm
@@ -29,26 +30,36 @@ ScreenManager:
 				anchor_x: "left"
 					
 				Image:
-					source: "./utils/logo.png"
+					source: "./utils/ProjectKanbanLogo.png"
 					size_hint: (None, None)
-					width: 300
+					width: 250
 					height: 300
-				#color: [1,0,0,1]
 			
 			MDBoxLayout:
 				orienation: "horizontal"
 				spacing: 100
 				padding: 100
 				
+				
+				TooltipIconButton:
+					icon: "plus"
+					tooltip_text: "Create new Project"
+					on_press:
+						app.make_project_dialog()
+					pos_hint: {"y": 0.7}
+				
 				MDTextButton:#MDFillRoundFlatIconButton:
 					icon: "settings"
 					text: "SETTINGS"
+					font_name: "AquireLight"
 					pos_hint: {"y": .5}
 					
 				MDTextButton:#MDFillRoundFlatIconButton:
 					icon: "help"
 					text: "HELP"
+					font_name: "AquireLight"
 					pos_hint: {"y": .5}
+				
 				
 		
 		ScrollView:
@@ -70,6 +81,12 @@ ScreenManager:
 	orientation: "vertical"
 	size_hint: (None, None)
 	size: (232.72727272727272, 340)
+	on_press:
+		app.root.current = self.title
+		app.screen_order.remove(self.title)
+		app.screen_order.insert(0, self.title)
+		app.refresh_main()
+		
 	background_color: 0,0,0,0  # the last zero is the critical on, make invisible
 	pos: (1000, 100)
 	canvas.before:
@@ -124,3 +141,289 @@ ScreenManager:
 			halign: "left"
 			valign: "top"
 
+
+<BoardScreen>:
+	
+	# The Layout the Whole Screen is composed of
+	BoxLayout:
+		orientation: "vertical"
+		
+		BoxLayout:
+			size_hint: (1, .15)
+			padding: 30
+			spacing: 30
+			MDIconButton:
+				icon: "keyboard-backspace"
+				on_press:
+					app.refresh_main()
+					app.root.current = "main"
+
+			Label:
+				text: root.title
+				font_name: "CabalBold"
+				font_size: 40
+				color: app.primary_colors["Light Purple"]
+			
+			TooltipIconButton:
+				icon: "settings-outline"
+				tooltip_text: "Board Settings"
+				on_press:
+					root.show_settings_dialog()
+			
+			TooltipIconButton:
+				icon: "card-plus"
+				tooltip_text: "Create new Card"
+				on_press:
+					app.add_card_dialog()
+		
+		# The Different categories of Cards
+		MDBoxLayout:
+			id: card_category_container
+			padding: 20
+			spacing: 20
+			
+			
+
+
+<CardCategory>:
+	
+	# Each Category of cards
+	#MDBoxLayout:
+	orientation: "vertical"
+		
+	ColoredLabel:
+		text: root.id
+		size_hint: (1, .1)
+	
+	ScrollView:
+		CardContainer:
+			size_hint_y: None
+			height: self.minimum_height
+			id: cards
+			name: f"{root.id}"
+			orientation: "vertical"
+			spacing: 10
+			padding: 10
+			
+			Widget:
+				size_hint: (1, 2)
+				
+		
+		
+		
+						
+			
+
+<KanbanCard>:
+	anchor_x: "center"
+	anchor_y: "center"
+	padding: 10
+	spacing: 10
+	size_hint: (None, None)
+	xgddg: self.ids.task.texture_size[1] + self.ids.title.texture_size[1]
+	size: (win.size[0] / self.categories - 50, 60 + self.xgddg)
+		
+	pos: (1000, 100)
+	canvas.before:
+		Color:
+			rgba: self.color
+		RoundedRectangle:
+			pos: self.pos
+			size: self.size
+			radius: [10,]
+	
+	BoxLayout:
+		id: container
+		orientation: "vertical"
+		padding: 10
+		spacing: 10
+		size_hint: (None, None)
+		y_size: root.ids.task.texture_size[1] + root.ids.title.texture_size[1]
+		size: (root.size[0] - 10, 50 + self.y_size)
+			
+		pos: (1000, 100)
+		canvas.before:
+			Color:
+				rgba: (1,1,1,1)
+			RoundedRectangle:
+				pos: self.pos
+				size: self.size
+				radius: [10,]		
+				
+		
+		MDLabel:
+			id: title
+			text: root.title
+			font_name: "AquireBold"
+			font_size: 20
+			size_hint: (1, None)
+			text_size: self.size
+			height: self.texture_size[1]
+			on_touch_down: pass
+			halign: "left"
+			color: (0,0,0,1)
+		
+		MDLabel:
+			id: task
+			text: root.task
+			font_name: "Cabal"
+			size_hint: (1, None)
+			text_size: (None, None)
+			height: self.texture_size[1]
+			halign: "center"
+			on_touch_down:
+			color: (0,0,0,1)
+		
+		MDLabel:
+			text: root.due_date
+			theme_text_color: "Secondary"
+			halign: "right"
+
+
+
+
+
+
+	
+<LabelBackground@Widget>:
+	background_color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: root.background_color
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+
+<RoundedLabelBG@Widget>:
+	canvas.before:
+		Color:
+			rgba: root.background_color
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+
+<ColoredLabel@Label+LabelBackground>
+	background_color: (109/255, 145/255, 246/255, 1)
+	halign: "center"
+
+
+<BoardDialogItem>:
+	on_press:
+		self.parent.parent.parent.parent.dismiss()
+		app.board_settings(*args)
+	IconLeftWidget:
+		icon: root.icon
+		
+
+<CardDialogItem>:
+	on_press:
+		self.parent.parent.parent.parent.dismiss()
+		app.card_settings(*args)
+	IconLeftWidget:
+		icon: root.icon
+		
+
+<MoveCardDialogItem>:
+	on_press:
+		self.parent.parent.parent.parent.dismiss()
+		app.move_card(self.text, self.parent.parent.parent.parent.card, self.parent.parent.parent.parent.card_category)
+	IconLeftWidget:
+		icon: root.icon
+		
+
+<AddCardDialogItem>:
+	on_press:
+		self.parent.parent.parent.parent.dismiss()
+		app.add_card(*args)
+	
+
+		
+<Content>
+	orientation: "vertical"
+	spacing: "12dp"
+	size_hint_y: None
+	height: "120dp"
+
+	MDTextField:
+		id: text_field
+		text: root.text
+		hint_text: root.hint
+		max_text_length: 17 if self.hint_text == "New Project Name" else None
+		input_filter: "int" if self.hint_text == "New 'Works in progress' limit" else None
+		#mode: "rectangle"
+		size_hint: (.5, None)
+		pos_hint: {"x":.25}
+		helper_text: "hi!"
+
+<CardSettingsContent>
+	orientation: "vertical"
+	spacing: "12dp"
+	size_hint_y: None
+	height: "120dp"
+
+	MDTextField:
+		id: new_title
+		text: root.title
+		hint_text: "New Title:"
+		mode: "rectangle"
+		size_hint: (.5, None)
+		pos_hint: {"x":.25}
+	
+	MDTextField:
+		id: new_task
+		text: root.task
+		mode: "rectangle"
+		hint_text: "New Task:"
+		multiline: True
+		size_hint: (.5, None)
+		pos_hint: {"x":.25}
+	
+	MDRaisedButton:
+		text: "Set Due Date"
+		pos_hint: {"x": .4}
+		on_press:
+			app.set_card_due(app.card_due)
+	
+<AddCardContent>
+	orientation: "vertical"
+	spacing: "12dp"
+	size_hint_y: None
+	height: "120dp"
+
+	MDTextField:
+		id: title
+		hint_text: "Title:"
+		mode: "rectangle"
+		size_hint: (.5, None)
+		pos_hint: {"x":.25}
+	
+	MDTextField:
+		id: task
+		mode: "rectangle"
+		hint_text: "Task:"
+		multiline: True
+		size_hint: (.5, None)
+		pos_hint: {"x":.25}
+	
+	MDRaisedButton:
+		text: "Set Due Date"
+		pos_hint: {"x": .4}
+		on_press:
+			app.add_card_due()
+
+
+	
+<AddProjectContent>
+	orientation: "vertical"
+	spacing: "12dp"
+	size_hint_y: None
+	height: "120dp"
+
+	MDTextField:
+		id: new_project_name
+		hint_text: "Project Name:"
+		size_hint: (.5, None)
+		pos_hint: {"x":.25}
+	

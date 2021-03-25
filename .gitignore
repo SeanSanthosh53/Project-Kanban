@@ -1,1 +1,3 @@
 .kivy/
+utils/modules/__pycache__/
+data/
