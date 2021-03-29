@@ -11,16 +11,13 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.list import OneLineIconListItem
 from kivymd.uix.button import MDRaisedButton
 from kivymd.uix.behaviors import TouchBehavior
+from kivymd.uix.behaviors.ripplebehavior import *
 from kivy.lang import Builder
 from kivymd.uix.button import MDFlatButton
-from kivy_garden.drag_n_drop import DraggableController, DraggableLayoutBehavior, DraggableObjectBehavior
 
 
-# DragController used to control drag and drop between card categories
-drag_controller = DraggableController()
 
-
-class ProjectContainer(MDBoxLayout, Button):
+class ProjectContainer(MDBoxLayout, Button, CircularRippleBehavior):
 	id = StringProperty()
 	# Stuff displayed on the Project Containers
 	title = StringProperty("")
@@ -67,6 +64,7 @@ class MoveCardDialogItem(OneLineIconListItem):
 
 class AddCardDialogItem(OneLineIconListItem):
 	divider = None
+	icon = StringProperty("")
 	
 	
 class CardCategory(MDBoxLayout):
@@ -80,7 +78,7 @@ class CardContainer(MDBoxLayout):
 
 
 
-class KanbanCard(AnchorLayout, TouchBehavior):
+class KanbanCard(AnchorLayout):
 	
 	title = StringProperty("")
 	task = StringProperty("")
@@ -91,8 +89,7 @@ class KanbanCard(AnchorLayout, TouchBehavior):
 	
 	
 	
-	def on_long_touch(self, one, two):
-		toast('Trying to open!')
+	def move_card(self):
 		if not self.settings_open:
 			self.move_dialog = MDDialog(
 				title="Change card:\n" + self.title + "\nto which category?" ,
@@ -114,9 +111,6 @@ class KanbanCard(AnchorLayout, TouchBehavior):
 			self.move_dialog.open()
 		
 	
-	
-	def on_double_tap(self, touch):
-		self.show_settings()
 		
 	
 	def show_settings(self):
@@ -129,11 +123,10 @@ class KanbanCard(AnchorLayout, TouchBehavior):
 				CardDialogItem(text="Delete Card", icon="delete"),
 				],
 			buttons=[
-				MDRaisedButton(text="DISCARD", id = 'b'),
+				MDRaisedButton(text="DISCARD"),
 			],
 				)
-		button = [i for i in self.dialog.buttons if i.id == 'b']
-		button = button[0]
+		button = self.dialog.buttons[0]
 		self.dialog.size_hint = (None, 1)
 		self.dialog.width = 1000
 		self.dialog.card = self
@@ -178,16 +171,15 @@ class BoardScreen(Screen):
 				title="Kanaban Board Settings",
 				type="simple",
 				items=[
-					#BoardDialogItem(text="Set 'Works in progress' limit", icon="worker"),
+					BoardDialogItem(text="Set 'Works in progress' limit", icon="worker"),
 					BoardDialogItem(text="Rename Project", icon="rename-box"),
 					BoardDialogItem(text="Delete Project", icon="delete"),
 					],
 				buttons=[
-					MDRaisedButton(text="DISCARD", id = 'b'),
+					MDRaisedButton(text="DISCARD"),
 				],
 					)
-		button = [i for i in self.dialog.buttons if i.id == 'b']
-		button = button[0]
+		button = self.dialog.buttons[0]
 		self.dialog.size_hint = (None, 1)
 		self.dialog.width = 1000
 		button.on_press = self.dialog.dismiss
@@ -210,3 +202,6 @@ class AddCardContent(MDBoxLayout):
 	
 class AddProjectContent(MDBoxLayout):
 	pass
+
+class HelpScreen(Screen):
+	pass	
