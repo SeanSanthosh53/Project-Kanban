@@ -20,7 +20,7 @@ This project was created on the theme "Visualisation" and I decided to make an a
 If you do like this app and do want to appreciate my work, vote for this project by clicking the button below!
 
 
-**[Vote For Project-Kanaban](https://twtcodejam.net/timathon/vote/724)**
+**[Vote For Project-Kanban](https://twtcodejam.net/timathon/vote/724)**
 
 **Note:** This Project was totally made in an android Tablet. This might not work in your computer as expected.
 
@@ -197,6 +197,6 @@ Hope you **you like** the App!
 If you do, don't forget to appreciate my work by clicking the link below!
 
 
-**[Vote For Project-Kanaban](https://twtcodejam.net/timathon/vote/724)**
+**[Vote For Project-Kanban](https://twtcodejam.net/timathon/vote/724)**
 
 
