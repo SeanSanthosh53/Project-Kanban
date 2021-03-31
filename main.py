@@ -399,8 +399,16 @@ class Oculus(MDApp):
 		
 		def edit_card():
 			self.edit_card_due = card.due_date
+			print(len(card.title))
+			if len(card.title) < 10:
+				display_title = card.title
+				print(1)
+			else:
+				print(2)
+				display_title = card.title[:10] + '\n' + card.title[10:]
+				print(display_title)
 			edit_card_dialog = MDDialog(
-				title="Edit Card\n" + card.title,
+				title="Edit Card\n" + display_title,
 				type="custom",
 				content_cls=CardSettingsContent(task = card.task, title = card.title),
 				buttons=[
@@ -422,6 +430,7 @@ class Oculus(MDApp):
 				card.task = new_task
 				card.due_date = self.edit_card_due
 				card.color = self.calculate_days(list(map(int, card.due_date.split("-"))))
+				self.move_card(card.parent.parent.parent.id, card, card.parent.parent.parent.id)
 				
 				edit_card_dialog.dismiss()
 				
