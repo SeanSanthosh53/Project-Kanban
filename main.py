@@ -1,11 +1,9 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
-from kivymd.toast import toast
 from utils.modules.widgets import *
 from kivymd.uix.button import MDFlatButton
 import json
-import pickle
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.picker import MDDatePicker
 from datetime import date
@@ -63,7 +61,7 @@ class Oculus(MDApp):
 	
 	# Function to add a Project Container		
 	def add_container(self, title, date, works_in_progress, work_to_do):
-		project_library = self.root.ids.main_screen.ids.project_library
+		project_library = self.root.get_screen('main').ids.project_library
 		project_library.add_widget(ProjectContainer(title = title, date = date, wip = works_in_progress, wtd = work_to_do, id = title))
 		self.root.add_widget(BoardScreen(name = title, title = title))
 	
@@ -240,8 +238,10 @@ class Oculus(MDApp):
 				self.data[new_project_name] = { "Card Categories": {"Backlog": [], "In Progress": [], "Done": []}, "Due Date": self.new_project_due, "WIP Limit": 3}
 				with open("data/UserData.json", "w") as file:
 					json.dump(self.data, file, indent = 4)
-				
 				self.screen_order.append(new_project_name)
+				with open("data/AppData.json", "w") as file:
+					json.dump(self.app_data, file, indent = 4)
+				
 				
 				self.add_container(new_project_name, self.new_project_due, "0", "0")
 				for category in self.data[new_project_name]["Card Categories"].keys():
