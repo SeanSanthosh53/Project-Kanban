@@ -400,12 +400,12 @@ class Oculus(MDApp):
 		def edit_card():
 			self.edit_card_due = card.due_date
 			print(len(card.title))
-			if len(card.title) < 10:
+			if len(card.title) < 20:
 				display_title = card.title
 				print(1)
 			else:
 				print(2)
-				display_title = card.title[:10] + '\n' + card.title[10:]
+				display_title = card.title[:20] + '\n' + card.title[20:]
 				print(display_title)
 			edit_card_dialog = MDDialog(
 				title="Edit Card\n" + display_title,
