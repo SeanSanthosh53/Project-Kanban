@@ -183,7 +183,7 @@ Each Kanban card that you create has an outer border. The function of the border
 2. Select the card category you want to move the card to.
 3. The card will be moved to the category you chose.
 
-![Move A Card](https://i.ibb.co/4tJzhyT/Move-Card.gif) 
+![Move A Card](https://i.ibb.co/1d6GMJT/Move-a-card.gif) 
 
 
 
