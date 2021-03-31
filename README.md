@@ -192,3 +192,10 @@ Each Kanban card that you create has an outer border. The function of the border
 
 
 
+Hope you **you like** the App!
+If you do, don't forget to appreciate my work by clicking the link below!
+
+
+**[Vote For Project-Kanaban](https://twtcodejam.net/timathon/vote/724)**
+
+
