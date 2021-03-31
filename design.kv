@@ -1,9 +1,10 @@
 
+#: import webopen webbrowser.open
 #: import NoTransition kivy.uix.screenmanager.NoTransition
-#: import toast kivymd.toast.toast
 #: import ScrollEffect kivy.effects.scroll.ScrollEffect
 #: import win kivy.core.window.Window
 
+<TooltipIconActionButton@MDTooltip+MDFloatingActionButton>
 <TooltipIconButton@MDTooltip+MDIconButton>
 
 ScreenManager:
@@ -11,8 +12,8 @@ ScreenManager:
 	transition: NoTransition()			
 
 	MainScreen:
+		name: "main"
 		id: main_screen
-		manager: sm
 	
 	HelpScreen:
 		name: "help"
@@ -20,11 +21,12 @@ ScreenManager:
 
 
 <MainScreen>:
-	name: "main"
-	BoxLayout:
+	MDBoxLayout:
+		id: boxlayout
 		orientation: "vertical"
 		
 		BoxLayout:
+			id: toolbar
 			orientation: "horizontal"
 			size_hint: (1, .2)
 			spacing: 500
@@ -33,7 +35,10 @@ ScreenManager:
 				anchor_x: "left"
 					
 				Image:
-					source: "./utils/ProjectKanbanLogo.png"
+					id: image
+					anim_delay: 0.05
+					anim_loop: 1
+					source: "utils/Project-Kanban-Anim.gif"
 					size_hint: (None, None)
 					width: 250
 					height: 300
@@ -43,21 +48,14 @@ ScreenManager:
 				spacing: 100
 				padding: 100
 				
-				
-				TooltipIconButton:
-					icon: "plus"
-					tooltip_text: "Create new Project"
-					on_press:
-						app.make_project_dialog()
-					pos_hint: {"y": 0.7}
 					
-				MDTextButton:
+				MDRaisedButton:
 					icon: "help"
 					text: "HELP"
 					on_press:
 						app.root.current = "help"
 					font_name: "AquireLight"
-					pos_hint: {"y": .5}
+					pos_hint: {"y": .8}
 				
 				
 		
@@ -72,6 +70,18 @@ ScreenManager:
 				# Properties needed for ScrollView
 				size_hint_y: None
 				height: self.minimum_height
+	
+	TooltipIconActionButton:
+		icon: "plus"
+		md_bg_color: (127/255, 158/255, 247/255, 1)
+		tooltip_text: "Create new Project"
+		size_hint: (None, None)
+		size: (85, 85)
+		on_press:
+			app.make_project_dialog()
+			print(self.size)
+		pos_hint: {"y": 0.05, "x" : 0.9}
+
 
 
 
@@ -455,6 +465,67 @@ ScreenManager:
 
 
 <HelpScreen>:
-	MDLabel:
-		text: """Hi! First of all, thank you so much using my app! nnThis app is actually a project submitted to a coding competition (also called a 'Code Jam') named the 'Timathon'. It is held a Tech Youtuber called Tim every 2 months, making it an oportunity for hobbyist programers like us to put our skills to the test and be appreciated for our projects with various prizes. nnThis project was created on the theme "Visualisation" and I decided to make an app like this as this app uses the Kanban Method, which is a visualisation technique around the Globe!nn"Kanban" means "Visualisation Signal" in the Japanese langauge. It was first used by the famous Automobile Company "Toyota" to increase efficiency within the employees.nnIf you liked this app and do want to appreciate my work, vote me by clicking the button below!"""
-	
+	MDBoxLayout:
+		orientation: "vertical"
+		padding: 20
+		spacing: 50
+		
+		BoxLayout:
+			size_hint: (1, None)
+			text_size: (None, None)
+			height: self.children[0].texture_size[1] + 75
+				
+			MDIconButton:
+				icon: 'keyboard-backspace'
+				on_press: app.root.current = 'main'
+				
+			MDLabel:
+				id: title
+				text: "Thank you SO MUCH for using the APP!"
+				font_name: "Cabal"
+				font_size: 50
+				size_hint: (1, None)
+				text_size: (None, None)
+				height: self.texture_size[1]
+				halign: "center"
+				on_touch_down:
+				color: (74/255, 73/255, 166/255, 1)
+			
+		MDLabel:
+			text: root.project_overview
+			font_size: 27
+			font_name: "Cabal"
+			size_hint: (1, .5)
+			text_size: (None, None)
+			height: self.texture_size[1] + 20
+			halign: "center"
+			color: (109/255, 145/255, 246/255, 1)
+		
+		MDRectangleFlatIconButton:
+			text: "Visit Github Repo"
+			icon: "github-circle"
+			md_bg_color: (137/255, 139/255, 201/255, 1)
+			pos_hint: {"x": 0.41}
+			text_color: (1, 1, 1, 1)
+			font_name: "Paul"
+			font_size: 25
+			width: dp(220)
+			on_press:
+				webopen("https://github.com/SeanSanthosh53/Project-Kanban")
+		
+		MDRectangleFlatIconButton:
+			text: "Vote for Project-Kanban"
+			md_bg_color: (137/255, 139/255, 201/255, 1)
+			pos_hint: {"x": 0.39}
+			icon: "vote"
+			text_color: (1, 1, 1, 1)
+			font_name: "Paul"
+			font_size: 25
+			width: dp(280)
+			on_press:
+				print(self.font_size)
+				webopen("https://twtcodejam.net/timathon/vote/")
+		
+			
+			
+

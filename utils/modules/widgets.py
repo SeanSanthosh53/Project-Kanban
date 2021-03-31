@@ -6,18 +6,16 @@ from random import choice
 from kivy.core.text import LabelBase
 from kivy.uix.widget import Widget
 from kivy.uix.button import Button
-from kivymd.toast import toast
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.list import OneLineIconListItem
 from kivymd.uix.button import MDRaisedButton
-from kivymd.uix.behaviors import TouchBehavior
-from kivymd.uix.behaviors.ripplebehavior import *
 from kivy.lang import Builder
+from kivy.clock import Clock
 from kivymd.uix.button import MDFlatButton
 
 
 
-class ProjectContainer(MDBoxLayout, Button, CircularRippleBehavior):
+class ProjectContainer(MDBoxLayout, Button):
 	id = StringProperty()
 	# Stuff displayed on the Project Containers
 	title = StringProperty("")
@@ -143,6 +141,17 @@ class KanbanCard(AnchorLayout):
 	
 		
 class MainScreen(Screen):
+	def run_anim(self, one):
+		self.ids.image.anim_delay = 0.05
+	
+	def stop_anim(self, one):
+		print(1, self.ids)
+		self.ids.image.anim_delay = -1
+	
+	def on_enter(self):
+		Clock.schedule_once(self.run_anim)
+		#Clock.schedule_once(self.stop_anim, 5)
+		
 	# Add New project
 	def make_project_dialog(self):
 		self.add_project_dialog = MDDialog(
@@ -204,4 +213,10 @@ class AddProjectContent(MDBoxLayout):
 	pass
 
 class HelpScreen(Screen):
-	pass	
+	project_overview = """Hi! First of all, thank you so much for using my app! 
+This app is actually a project submitted to a coding competition (also called a 'Code Jam') named the 'Timathon'. It is held by a Tech Youtuber called Tim every 2 months, making it an oportunity for hobbyist programers like us to put our skills to the test and be appreciated for our projects with various prizes. 
+This project was created on the theme "Visualisation" and I decided to make an app like this as this app uses the Kanban Method, which is a visualisation technique used around the Globe!
+"Kanban" means "Visualisation Signal" in the Japanese langauge. It was first used by the famous Automobile Company "Toyota" to increase efficiency within the employees.
+If you liked this app and do want to appreciate my work, vote for this project by clicking the button below!"""
+	
+		
