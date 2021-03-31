@@ -12,9 +12,12 @@
 
 # PROJECT KANBAN
 ## Project Overview
-PROJECT KANBAN is a **project progress visualizer** that **increases efficiency** in the work you do!
-
-It uses the **Kanban method** to increase efficiency and get better results.
+PROJECT KANBAN is a **project progress visualizer** that **increases efficiency** in the work you do.It uses the **Kanban method** to increase efficiency and get better results.
+This app is actually a project submitted to a coding competition (also called a 'Code Jam') named the 'Timathon'. It is held by a Tech Youtuber called Tim every 2 months, Making it an oportunity for hobbyist programers like us to put our skills to the test and be appreciated for our projects with various prizes. ![Check out his channel if you haven't.](https://www.youtube.com/channel/UC4JX40jDee_tINbkjycV4Sg)
+This project was created on the theme "Visualisation" and I decided to make an app like this as this app uses the Kanban Method, which is a visualisation technique used around the Globe!
+"Kanban" means "Visualisation Signal" in the Japanese langauge. It was first used by the famous Automobile Company "Toyota" to increase efficiency within the employees.
+If you do like this app and do want to appreciate my work, vote for this project by clicking the button below!
+**[Vote For Project-Kanaban](https://twtcodejam.net/timathon/vote/724)**
 
 **Note:** This Project was totally made in an android Tablet. This might not work in your computer as expected.
 
