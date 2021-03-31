@@ -17,6 +17,8 @@ This app is actually a project submitted to a coding competition (also called a 
 This project was created on the theme "Visualisation" and I decided to make an app like this as this app uses the Kanban Method, which is a visualisation technique used around the Globe!
 "Kanban" means "Visualisation Signal" in the Japanese langauge. It was first used by the famous Automobile Company "Toyota" to increase efficiency within the employees.
 If you do like this app and do want to appreciate my work, vote for this project by clicking the button below!
+
+
 **[Vote For Project-Kanaban](https://twtcodejam.net/timathon/vote/724)**
 
 **Note:** This Project was totally made in an android Tablet. This might not work in your computer as expected.
