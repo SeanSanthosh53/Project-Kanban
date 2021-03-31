@@ -14,7 +14,23 @@
 ## Project Overview
 PROJECT KANBAN is a **project progress visualizer** that **increases efficiency** in the work you do!
 
-PROJECT KANBAN uses the **Kanban method** to increase efficiency and get better good results.
+It uses the **Kanban method** to increase efficiency and get better results.
+
+**Note:** This Project was totally made in an android Tablet. This might not work in your computer as expected.
+
+
+## Setting Up, and running the Project.
+As being a Project following following simple concepts, it is very easy to setup the project.
+Just run the following commands in your terminal:
+
+```
+git clone https://github.com/SeanSanthosh53/Project-Kanban
+cd Project-Kanban
+pip install -r requirements.txt
+python main.py
+```
+
+
 
 ### What is the Kanban Method?
 **KANBAN** is a workflow management method for defining, managing and improving services that deliver knowledge work. It aims to visualise your work, maximise efficiency, and improve continuously.
@@ -39,6 +55,9 @@ The Kanban method consists 3 main things.
 - The Kanban Board
 - The Card Category
 - The Kanban Cards
+
+
+Each board is each of your projects. Each board contains three categories defining the status of each card containing the tasks of that card.
 
 ## The Kanban Board
 
@@ -70,7 +89,7 @@ The Kanban Board is a Particular Project. It contains all the tasks you need to 
 
 ##### Renaming a Board
 
-1. Open the project you want to delete.
+1. Open the project you want to rename.
 2. Click the Settings button in the top.
 3. Click 'Rename Project.'
 4. Enter the New Project Name.
@@ -85,7 +104,7 @@ The Kanban Board is a Particular Project. It contains all the tasks you need to 
 The Card Category contains each cards containing each task which you will read later.
 There are 3 categories.
 
-**NB**: Right now you cannot create or delete Card Categories.""
+**Note**: Right now you cannot create or delete Card Categories.""
 
 | Card Category | Card Type |
 |---- | -----|
@@ -153,13 +172,18 @@ Each Kanban card that you create has an outer border. The function of the border
 1. Click on the Settings button on the card you want to delete.
 2. Click 'Edit Card'
 3. Enter the required title/task/ or set a different due date.
-4. Click 'EDIT'
+4. Click 'OK'
 
 ![Edit a Card](https://i.ibb.co/yk0b7GQ/Edit-a-Card.gif)
 
 
 #### Moving a card from one category to another
 
+1. Click on the **left-right-arrow** button on the card you want to move.
+2. Select the card category you want to move the card to.
+3. The card will be moved to the category you chose.
+
+![Move A Card](https://i.ibb.co/4tJzhyT/Move-Card.gif) 
 
 
 
